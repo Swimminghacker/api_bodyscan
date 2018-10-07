@@ -2,18 +2,18 @@ from flask import request
 from flask import jsonify
 
 from app import db
-from app.models import User,Operator
-from . import operatorPage
+from app.models import User,Organization
+from . import organizationPage
 from app.auth import tokenUtils
 
-@operatorPage.route("/operator/freeze",methods=['POST'])
+@organizationPage.route("/organization/freeze",methods=['POST'])
 @tokenUtils.token_required
 def freezeOperator(user_id):
 	code = 200
 	msg = 'Success!'
 
 	values = request.json
-	operator_id = values.get('operator_id')
+	org_id = values.get('org_id')
 	action = values.get('action')
 
 	user = User.query.filter_by(id = user_id).first() 
@@ -25,20 +25,20 @@ def freezeOperator(user_id):
 			code = 202
 			msg = 'access deny!'
 		else:
-			if operator_id is None or action is None:
+			if org_id is None or action is None:
 				code = 203
 				msg = 'parameter error!'
 			else:
-				operator = Operator.query.filter_by(id = operator_id).first()
-				if operator is None:
+				organization = Organization.query.filter_by(id = org_id).first()
+				if organization is None:
 					code = 204
-					msg = 'this operator not exsit!'
+					msg = 'this organization not exsit!'
 				else:
 					if action == 1:
-						operator.status = 1
+						organization.status = 1
 					elif action == 2:
-						operator.status = 0
-					db.session.add(operator)
+						organization.status = 0
+					db.session.add(organization)
 					db.session.commit()
 
 	json_to_send = {
