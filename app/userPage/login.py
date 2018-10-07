@@ -1,7 +1,7 @@
 from flask import request
 from flask import jsonify
 from app import db
-from app.models import User
+from app.models import User,Operator
 from . import userPage
 
 from app.auth import tokenUtils
@@ -29,10 +29,23 @@ def login():
 				code = 203
 				msg = 'password error!'
 			else:
-				data = {
-					'ident':user.role,
-					'token':tokenUtils.gen_token(user).decode('ascii')
-				}
+				account = user.account
+				role = user.role
+				status = 1
+				if role == 1:
+					operator = Operator.query.filter_by(account = account).first()
+					status = operator.status
+				if role == 2:
+					pass
+
+				if status == 0:
+					code = 204
+					msg = 'account frozen!'
+				else:
+					data = {
+						'ident':role,
+						'token':tokenUtils.gen_token(user).decode('ascii')
+					}
 	
 	josn_to_send = {
 		'status':{

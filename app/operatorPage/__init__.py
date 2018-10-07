@@ -4,3 +4,4 @@ operatorPage = Blueprint('operatorPage', __name__)
 
 from . import getOperatorList
 from . import addOperator
+from . import freezeOperator
