@@ -3,13 +3,15 @@ from flask import jsonify
 from app.models import User
 from . import userPage
 
-@userPage.route('/logout',methods = ['GET'])
+@userPage.route('/logout',methods = ['POST'])
 @tokenUtils.token_required
 def logout(user_id):
-	return jsonify({
+	json_to_send = {
 		'status':{
 			'code':200,
 			'msg':'logout success!'
 		},
 		'data':{}
-		})
+		}
+		
+	return jsonify(json_to_send)

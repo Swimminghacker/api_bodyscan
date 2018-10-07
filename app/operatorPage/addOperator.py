@@ -14,14 +14,14 @@ def addOperator(user_id):
 	code = 200 
 	msg = "add operator success!"
 
-	values = request.values
+	values = request.json
 	name = values.get('name')
 	tel = values.get('tel')
 
 	user = User.query.filter_by(id = user_id).first()
 	if user is None:
 		code = 201 
-		msg = "this user not exist!"
+		msg = "this token-user not exist!"
 	else:
 		if user.role != 0:
 			code = 202

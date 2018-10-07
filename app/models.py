@@ -31,6 +31,13 @@ class Operator(db.Model):
     created_time = db.Column(db.Date)
     password = db.Column(db.String(45))
 
+    receive_num = db.Column(db.INTEGER)
+    process_num = db.Column(db.INTEGER)
+    wait_num = db.Column(db.INTEGER)
+    finished_num = db.Column(db.INTEGER)
+
+    status = db.Column(db.INTEGER)
+
     def __init__(self, name, account, password, created_time):
         self.name = name
         self.account = account

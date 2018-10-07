@@ -1,6 +1,5 @@
 from flask import request
 from flask import jsonify
-import json
 from app import db
 from app.models import User
 from . import userPage
@@ -14,7 +13,7 @@ def login():
 	msg = 'success'
 	data = {}
 
-	values = request.values
+	values = request.json
 	name = values.get('username')
 	password = values.get('password')
 	if name is None or password is None:
@@ -43,12 +42,12 @@ def login():
 		'data':data
 	}
 
-	return json.dumps(josn_to_send,ensure_ascii=False)
+	return jsonify(josn_to_send)
 
 @userPage.route('/modifyPassword',methods=['POST'])
 @tokenUtils.token_required
 def change_password(user_id):
-	values = request.values
+	values = request.json
 	pre_password = values.get('prevPwd')
 	new_password = values.get('newPwd')
 
