@@ -128,6 +128,7 @@ class Task_detail(db.Model):
     description = db.Column(db.String(255))
 
     file_url = db.Column(db.String(45))
+    report_file_url = db.Column(db.String(45))
 
     def __init__(self, task_id, target_name,target_gender,target_id,measuring_part,measuring_method,measuring_time,description,file_url):
         self.task_id = task_id

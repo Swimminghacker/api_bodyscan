@@ -48,7 +48,7 @@ def getTaskList(user_id):
 				total_record = len(Task.query.all())
 				total_page = math.ceil(total_record/page_size)
 				task_list = Task.query.order_by(Task.created_time.desc()).limit(page_size).offset((page_index-1)*page_size)
-			if user.role == 1:
+			elif user.role == 1:
 				account = user.account
 				#选择自己跟进的任务以及没有领取的任务
 				operator = Operator.query.filter_by(account = account).first()
@@ -59,7 +59,7 @@ def getTaskList(user_id):
 				task_list = Task.query.filter(or_(Task.operator_id == operator.id,Task.status == 0)).order_by(Task.created_time.desc()).limit(page_size).offset((page_index-1)*page_size)
 				
 
-			if user.role == 2:
+			elif user.role == 2:
 
 				account = user.account
 				organization_operator = Organization.query.filter_by(account = account).first()
