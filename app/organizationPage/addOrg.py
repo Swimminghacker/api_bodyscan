@@ -13,6 +13,7 @@ import datetime
 def addOperator(user_id):
 	code = 200 
 	msg = "add organization-operator success!"
+	org_id = None
 
 	values = request.json
 	name = values.get('name')
@@ -38,9 +39,10 @@ def addOperator(user_id):
 				msg = 'parameter error!'
 			else:
 				organization = Organization.query.filter_by(account = tel).first()
-				if organization is not None:
+				user = User.query.filter_by(account = tel).first()
+				if organization is not None or user is not None:
 					code = 204 
-					msg = 'organization has exist!'
+					msg = 'organization-operator has exist!'
 				else:
 					account = tel
 					password = account[-6:]
@@ -53,12 +55,17 @@ def addOperator(user_id):
 					db.session.add(user)
 					db.session.add(organization)
 					db.session.commit()
+
+					org_id = organization.id
+
 	json_to_send = {
 			'status':{
 				'code':code,
 				'msg':msg
 			},
-			'data':{}
+			'data':{
+				'org_id':org_id
+			}
 	}
 	return jsonify(json_to_send)
 

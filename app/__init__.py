@@ -23,6 +23,10 @@ def create_app(config_name):
     from app.organizationPage import organizationPage as organizationPage_blueprint
     app.register_blueprint(organizationPage_blueprint)
 
+
+    from app.taskPage import taskPage as taskPage_blueprint
+    app.register_blueprint(taskPage_blueprint)
+
     from app.userPage import userPage as userPage_blueprint
     app.register_blueprint(userPage_blueprint)
 
