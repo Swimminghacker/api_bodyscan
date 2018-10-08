@@ -96,6 +96,7 @@ class Task(db.Model):
     measuring_part = db.Column(db.String(45))
     status = db.Column(db.INTEGER,default=0)
     organization_operator_id = db.Column(db.INTEGER)
+    operator_id = db.Column(db.INTEGER)
 
     def __init__(self, name, gender,created_time,organization,measuring_part,status,organization_operator_id):
         self.name = name
