@@ -10,6 +10,7 @@ def create_app(config_name):
     app = Flask(__name__)
     app.config.from_object(config[config_name])
     app.config['JSON_AS_ASCII'] = False
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
     config[config_name].init_app(app)
 
     db.init_app(app)
@@ -26,6 +27,10 @@ def create_app(config_name):
 
     from app.taskPage import taskPage as taskPage_blueprint
     app.register_blueprint(taskPage_blueprint)
+
+
+    from app.utilsPage import utilsPage as utilsPage_blueprint
+    app.register_blueprint(utilsPage_blueprint)
 
     from app.userPage import userPage as userPage_blueprint
     app.register_blueprint(userPage_blueprint)

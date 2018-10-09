@@ -5,6 +5,7 @@ from app import db
 from app.models import User,Organization,Task,Task_detail
 from . import taskPage
 from app.auth import tokenUtils
+from app.utilsPage import downloadFile
 
 import datetime
 
@@ -24,7 +25,9 @@ def addTask(user_id):
 	method = values.get('method')
 	time = values.get('time')
 	description = values.get('description')
-	attachment = values.get('attachment')
+
+	file = request.files['attachment']
+	file_url = downloadFile.uploadFile(file,user_id)
 
 	user = User.query.filter_by(id = user_id).first()
 	if user is None:
@@ -35,7 +38,7 @@ def addTask(user_id):
 			code = 202
 			msg = "access deny!"
 		else:
-			if name is None or gender is None or id_card is None or part is None or method is None or time is None or description is None or attachment is None:
+			if name is None or gender is None or id_card is None or part is None or method is None or time is None or description is None or file_url is None:
 				code = 203
 				msg = 'parameter error!'
 			else:
@@ -53,7 +56,7 @@ def addTask(user_id):
 
 				task_id = task.id
 				measuring_time = datetime.datetime.strptime(time,'%Y/%m/%d').date()
-				task_detail = Task_detail(task_id, name,gender,id_card,part,method,measuring_time,description,attachment)
+				task_detail = Task_detail(task_id, name,gender,id_card,part,method,measuring_time,description,file_url)
 				db.session.add(task_detail)
 
 				organization.addTask(True)

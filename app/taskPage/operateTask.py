@@ -5,6 +5,7 @@ from app import db
 from app.models import User,Organization,Task,Task_detail,Operator
 from . import taskPage
 from app.auth import tokenUtils
+from app.utilsPage import downloadFile
 
 import datetime
 
@@ -57,7 +58,9 @@ def operateTask(user_id,task_id):
 
 							elif action == 'process' and task.status == 1 and task.operator_id == operator.id:
 
-								report_file_url = request.values.get('report_file')
+								file = request.files['report_file']
+								report_file_url = downloadFile.uploadFile(file)
+
 								if report_file_url is not None:
 
 									task_detail.report_file_url = report_file_url
