@@ -10,7 +10,7 @@ import datetime
 
 @taskPage.route('/tasks/add',methods=['POST'])
 @tokenUtils.token_required
-def addOperator(user_id):
+def addTask(user_id):
 	
 	code = 200 
 	msg = "add task success!"
@@ -55,6 +55,10 @@ def addOperator(user_id):
 				measuring_time = datetime.datetime.strptime(time,'%Y/%m/%d').date()
 				task_detail = Task_detail(task_id, name,gender,id_card,part,method,measuring_time,description,attachment)
 				db.session.add(task_detail)
+
+				organization.addTask(True)
+				db.session.add(organization)
+
 				db.session.commit()
 
 	json_to_send = {

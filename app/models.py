@@ -46,6 +46,30 @@ class Operator(db.Model):
 
     def __repr__(self):
         return '<Operator {}>'.format(self.account)
+    
+    def receiveTask(self,add):
+        if add is True:
+            self.receive_num = self.receive_num + 1
+        else:
+            self.receive_num = self.receive_num - 1
+
+    def processTask(self,add):
+        if add is True:
+            self.process_num = self.process_num + 1
+        else:
+            self.process_num = self.process_num - 1
+
+    def waitTask(self,add):
+        if add is True:
+            self.wait_num = self.wait_num + 1
+        else:
+            self.wait_num = self.wait_num - 1
+
+    def finishTask(self,add):
+        if add is True:
+            self.finished_num = self.finished_num + 1
+        else:
+            self.finished_num = self.finished_num - 1
 
 
 class Organization(db.Model):
@@ -81,6 +105,11 @@ class Organization(db.Model):
 
     def __repr__(self):
         return '<Organization {}>'.format(self.account)
+    def addTask(self,add):
+        if add is True:
+            self.task_num = self.task_num + 1
+        else:
+            self.task_num = self.task_num - 1
 
 
 class Task(db.Model):
