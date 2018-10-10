@@ -17,7 +17,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     # mysql+pymysql://<username>:<password>@<host>/<dbname>[?<options>]
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost:3306/bodyscan'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:root@localhost:3306/bodyscan_api'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 

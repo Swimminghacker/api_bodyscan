@@ -56,7 +56,7 @@ def operateTask(user_id,task_id):
 								code = 200
 								msg = 'operate task success!'
 
-							elif action == 'process' and task.status == 1 and task.operator_id == operator.id:
+							elif action == 'process' and (task.status == 1 or task.status == 2) and task.operator_id == operator.id:
 
 								file = request.files['report_file']
 								report_file_url = downloadFile.uploadFile(file)
@@ -77,6 +77,7 @@ def operateTask(user_id,task_id):
 
 									code = 200
 									msg = 'operate task success!'
+									data = {'task_report_url':report_file_url}
 
 							elif action == 'confirm' and task.status == 2 and task.operator_id == operator.id:
 								

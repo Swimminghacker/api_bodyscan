@@ -11,6 +11,7 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     app.config['JSON_AS_ASCII'] = False
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+    #app.config["APPLICATION_ROOT"] = "/api"
     config[config_name].init_app(app)
 
     db.init_app(app)

@@ -56,6 +56,8 @@ def getTaskDetail(user_id,task_id):
 			data['task_attachment_url'] = task_detail.file_url
 			data['task_report_url'] = task_detail.report_file_url
 			data['can_operator_confirm'] = False
+			if task.status == 2:
+				data['can_operator_confirm'] = True
 
 	json_to_send = {
 		'status':{

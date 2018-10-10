@@ -5,7 +5,11 @@ from app.models import User,Operator
 from . import userPage
 
 from app.auth import tokenUtils
+import time 
 
+@userPage.route('/test',methods = ['GET'])
+def test():
+	return 'test success!'
 
 @userPage.route('/login',methods = ['POST'])
 def login():
@@ -44,7 +48,8 @@ def login():
 				else:
 					data = {
 						'ident':role,
-						'token':tokenUtils.gen_token(user).decode('ascii')
+						'token':tokenUtils.gen_token(user).decode('ascii'),
+						'expire_time':int(round(time.time()*1000+60*60*24*1000))
 					}
 	
 	josn_to_send = {

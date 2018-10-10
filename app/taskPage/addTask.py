@@ -25,10 +25,13 @@ def addTask(user_id):
 	method = values.get('method')
 	time = values.get('time')
 	description = values.get('description')
-
-	file = request.files['attachment']
-	file_url = downloadFile.uploadFile(file,user_id)
-
+	file_url = ''
+	try:
+		file = request.files['attachments']
+		file_url = downloadFile.uploadFile(file,user_id)
+	except:
+		pass
+	
 	user = User.query.filter_by(id = user_id).first()
 	if user is None:
 		code = 201 

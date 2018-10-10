@@ -7,7 +7,7 @@ import os
 from flask import url_for,send_from_directory
 import hashlib,time
 
-ALLOWED_EXTENSIONS = set(['doc', 'docx', 'pdf', 'png','jpg','txt','xls','xlsx'])
+ALLOWED_EXTENSIONS = set(['doc', 'docx', 'pdf', 'png','jpg','txt','xls','xlsx','zip','rar','7z'])
 basedir = os.path.join(os.getcwd(),'file')
 
 @utilsPage.route('/downloadFile/<filename>',methods = ['POST','GET'])
@@ -19,9 +19,9 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 def uploadFile(file,user_id):
-	if file and allowed_file(file.filename):
-		ext = '.' + file.filename.rsplit('.',1)[1]
-		filename = hashlib.md5((str(user_id) + str(time.time())).encode('UTF-8')).hexdigest()[:15] + ext
+	if file:
+		ext = '.' + file.filename.rsplit('.', 1)[1]
+		filename = hashlib.md5((str(user_id) + str(time.time())).encode('UTF-8')).hexdigest()[:8] + ext
 		file_url = os.path.join(basedir, filename)
 		file.save(file_url)
 		download_url = url_for('utilsPage.download',filename=filename)

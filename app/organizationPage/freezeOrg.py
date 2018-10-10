@@ -34,10 +34,13 @@ def freezeOperator(user_id):
 					code = 204
 					msg = 'this organization not exsit!'
 				else:
-					if action == 1:
+					if action == '1':
 						organization.status = 1
-					elif action == 2:
+					elif action == '2':
 						organization.status = 0
+					else:
+						code = 205
+						msg = 'unkown error!'
 					db.session.add(organization)
 					db.session.commit()
 
